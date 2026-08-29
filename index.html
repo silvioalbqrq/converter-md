@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -20,10 +20,9 @@
       --accent-color: #238636;
       --accent-hover: #2ea043;
       --code-bg: #010409;
-      --tag-bg: #21262d;
       --blue-accent: #58a6ff;
 
-      --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-primary: 'Plus Jakarta Sans', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
 
@@ -37,14 +36,10 @@
       margin: 0 auto;
       padding: 0 20px 40px;
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
     }
 
-    code, pre, .badge {
-      font-family: var(--font-mono) !important;
-    }
+    code, pre, .badge { font-family: var(--font-mono) !important; }
 
-    /* BARRA NAVEGAÇÃO / LOGO */
     nav {
       display: flex;
       justify-content: space-between;
@@ -72,36 +67,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
     }
 
-    /* HERO SECTION */
-    .hero {
-      text-align: center;
-      margin-bottom: 40px;
-    }
+    .hero { text-align: center; margin-bottom: 40px; }
+    .hero h1 { color: var(--text-white); font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    .hero p { color: var(--text-muted); font-size: 1.15rem; max-width: 650px; margin: 0 auto 28px; }
 
-    .hero h1 {
-      color: var(--text-white);
-      font-size: 2.5rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.15rem;
-      max-width: 650px;
-      margin: 0 auto 28px;
-    }
-
-    /* BOTÃO DE AÇÃO DESTACADO */
     .btn-primary {
       background-color: var(--accent-color);
       color: #ffffff;
-      border: 1px solid rgba(240,246,252,0.1);
       padding: 16px 36px;
       border-radius: 8px;
       font-weight: 700;
@@ -110,17 +84,15 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      transition: all 0.2s ease;
       box-shadow: 0 4px 14px rgba(35, 134, 54, 0.4);
+      transition: all 0.2s ease;
     }
 
     .btn-primary:hover {
       background-color: var(--accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(35, 134, 54, 0.6);
     }
 
-    /* CARDS GENÉRICOS */
     .card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -129,47 +101,11 @@
       margin-bottom: 30px;
     }
 
-    .card h2, .card h3 {
-      color: var(--text-white);
-      margin-bottom: 16px;
-      font-weight: 700;
-    }
+    .card h2 { color: var(--text-white); margin-bottom: 16px; font-weight: 700; }
 
-    /* EXEMPLO VISUAL (ANTES / DEPOIS) */
-    .example-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .example-box {
-      background-color: var(--code-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 16px;
-    }
-
-    .example-box span {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--blue-accent);
-      margin-bottom: 8px;
-    }
-
-    .example-box pre {
-      font-size: 0.82rem;
-      color: #e6edf3;
-      white-space: pre-wrap;
-      word-break: break-all;
-    }
-
-    /* FORMATOS SUPORTADOS GRID */
     .formats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 12px;
       margin-top: 15px;
     }
@@ -181,91 +117,23 @@
       padding: 14px;
     }
 
-    .format-card strong {
-      color: var(--blue-accent);
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-    }
+    .format-card strong { color: var(--blue-accent); display: block; margin-bottom: 8px; }
 
-    .format-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
+    .badge-doc { background-color: #1f6beb22; border: 1px solid #1f6beb; color: #58a6ff; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; }
+    .badge-data { background-color: #23863622; border: 1px solid #238636; color: #3fb950; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; }
+    .badge-web { background-color: #8957e522; border: 1px solid #8957e5; color: #bc8cff; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; }
 
-    .badge {
-      background-color: var(--tag-bg);
-      border: 1px solid var(--border-color);
-      color: #79c0ff;
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-
-    /* COMO FUNCIONA E POR QUE USAR */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .feature-item {
-      background-color: var(--code-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .feature-item h4 {
-      color: var(--text-white);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .feature-item p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* RODAPÉ */
     footer {
       border-top: 1px solid var(--border-color);
       padding-top: 30px;
       margin-top: 50px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
       color: var(--text-muted);
       font-size: 0.9rem;
     }
 
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-links a {
-      color: var(--blue-accent);
-      text-decoration: none;
-    }
-
-    .footer-links a:hover {
-      text-decoration: underline;
-    }
-
-    /* RESPONSIVIDADE (TELAS MENORES) */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 1.8rem; }
-      .hero p { font-size: 1rem; }
-      .example-grid { grid-template-columns: 1fr; }
-      nav, footer { flex-direction: column; text-align: center; }
-      .btn-primary { width: 100%; justify-content: center; }
-    }
+    footer a { color: var(--blue-accent); text-decoration: none; }
   </style>
 </head>
 <body>
@@ -281,101 +149,43 @@
   </nav>
 
   <section class="hero">
-    <h1>Conversão rápida e simples para Markdown</h1>
-    <p>Transforme arquivos HTML, documentos, planilhas e mídias em texto <code>.md</code> limpo, estruturado e pronto para uso em segundos.</p>
+    <h1>Conversão rápida de documentos para Markdown</h1>
+    <p>Transforme PDFs, planilhas, documentos Word e textos em arquivos <code>.md</code> limpos e prontos para uso em LLMs e documentações.</p>
     
     <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" class="btn-primary">
-      🚀 Converter Agora no Streamlit
+      🚀 Abrir Conversor no Streamlit
     </a>
   </section>
 
   <div class="card">
-    <h2>⚡ Exemplo Visual de Conversão</h2>
-    <p style="color: var(--text-muted); font-size: 0.95rem;">Veja como o conteúdo original é transformado diretamente em formato Markdown padronizado:</p>
-
-    <div class="example-grid">
-      <div class="example-box">
-        <span>Antes (Código HTML)</span>
-        <pre>&lt;h1&gt;Meu Documento&lt;/h1&gt;
-&lt;p&gt;Texto com &lt;strong&gt;negrito&lt;/strong&gt;.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Item 1&lt;/li&gt;
-  &lt;li&gt;Item 2&lt;/li&gt;
-&lt;/ul&gt;</pre>
-      </div>
-
-      <div class="example-box">
-        <span>Depois (Resultado .MD)</span>
-        <pre># Meu Documento
-
-Texto com **negrito**.
-
-* Item 1
-* Item 2</pre>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>💡 Por que usar esta ferramenta?</h2>
-    <div class="features-grid">
-      <div class="feature-item">
-        <h4>⚡ 100% Online e Gratuito</h4>
-        <p>A conversão roda na nuvem em tempo real, sem necessidade de instalar programas no computador.</p>
-      </div>
-
-      <div class="feature-item">
-        <h4>🔒 Privacidade Garantida</h4>
-        <p>Seus arquivos são processados temporariamente para conversão e descartados em seguida.</p>
-      </div>
-
-      <div class="feature-item">
-        <h4>🛠️ Engine da Microsoft</h4>
-        <p>Utiliza a biblioteca oficial MarkItDown para garantir a melhor formatação de tabelas e textos.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>📂 Formatos Aceitos</h2>
+    <h2>📂 Formatos Suportados</h2>
     <div class="formats-grid">
       
       <div class="format-card">
         <strong>📄 Documentos</strong>
-        <div class="format-badges">
-          <span class="badge">.pdf</span>
-          <span class="badge">.docx</span>
-          <span class="badge">.pptx</span>
+        <div>
+          <span class="badge-doc">.pdf</span>
+          <span class="badge-doc">.docx</span>
+          <span class="badge-doc">.pptx</span>
         </div>
       </div>
 
       <div class="format-card">
         <strong>📊 Planilhas & Dados</strong>
-        <div class="format-badges">
-          <span class="badge">.xlsx</span>
-          <span class="badge">.xls</span>
-          <span class="badge">.csv</span>
-          <span class="badge">.json</span>
-          <span class="badge">.xml</span>
+        <div>
+          <span class="badge-data">.xlsx</span>
+          <span class="badge-data">.xls</span>
+          <span class="badge-data">.csv</span>
+          <span class="badge-data">.json</span>
         </div>
       </div>
 
       <div class="format-card">
         <strong>🌐 Web & Texto</strong>
-        <div class="format-badges">
-          <span class="badge">.html</span>
-          <span class="badge">.txt</span>
-        </div>
-      </div>
-
-      <div class="format-card">
-        <strong>🖼️ Mídias & Áudio</strong>
-        <div class="format-badges">
-          <span class="badge">.png</span>
-          <span class="badge">.jpg</span>
-          <span class="badge">.mp3</span>
-          <span class="badge">.wav</span>
-          <span class="badge">.zip</span>
+        <div>
+          <span class="badge-web">.html</span>
+          <span class="badge-web">.txt</span>
+          <span class="badge-web">.zip</span>
         </div>
       </div>
 
@@ -383,12 +193,10 @@ Texto com **negrito**.
   </div>
 
   <footer>
+    <div>© 2026 MarkItDown Web</div>
     <div>
-      © 2026 MarkItDown Web — Todos os direitos reservados.
-    </div>
-    <div class="footer-links">
-      <a href="https://github.com/silvioalbqrq/converter-md" target="_blank">Repositório no GitHub</a>
-      <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank">Aplicação Streamlit</a>
+      <a href="https://github.com/silvioalbqrq/converter-md" target="_blank">GitHub</a> | 
+      <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank">App Streamlit</a>
     </div>
   </footer>
 
