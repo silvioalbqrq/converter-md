@@ -1,2 +1,8 @@
 streamlit
 markitdown
+pdfminer.six
+python-pptx
+openpyxl
+pandas
+pydub
+beautifulsoup4
