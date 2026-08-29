@@ -1,7 +1,13 @@
 import streamlit as st
-from markitdown import MarkItDown
 import tempfile
 import os
+
+# Importação segura do MarkItDown
+try:
+    from markitdown import MarkItDown
+    MARKITDOWN_DISPONIVEL = True
+except ImportError:
+    MARKITDOWN_DISPONIVEL = False
 
 # 1. Configuração da página
 st.set_page_config(
@@ -10,10 +16,10 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Injeção de CSS personalizado (Tema Escuro no Estilo GitHub)
+# 2. Estilização CSS em Tema Escuro (Estilo GitHub)
 st.markdown("""
     <style>
-    /* Fundo da aplicação */
+    /* Fundo principal */
     .stApp {
         background-color: #0d1117;
         color: #c9d1d9;
@@ -25,7 +31,7 @@ st.markdown("""
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* Estilização dos blocos expansíveis e cards */
+    /* Expander / Bloco de Informações */
     .stDetails {
         background-color: #161b22;
         border: 1px solid #30363d !important;
@@ -37,22 +43,23 @@ st.markdown("""
         background-color: #161b22;
         border: 1px dashed #30363d;
         border-radius: 8px;
-        padding: 15px;
+        padding: 10px;
     }
 
-    /* Botão Primário (Estilo GitHub Green) */
-    .stButton>button {
+    /* Botões Primários (Verde GitHub) */
+    .stButton>button, .stDownloadButton>button {
         background-color: #238636 !important;
         color: #ffffff !important;
         border: 1px solid rgba(240,246,252,0.1) !important;
         border-radius: 6px !important;
         font-weight: 600 !important;
+        width: 100%;
     }
-    .stButton>button:hover {
+    .stButton>button:hover, .stDownloadButton>button:hover {
         background-color: #2ea043 !important;
     }
 
-    /* Badges para extensões de arquivo */
+    /* Badges de extensões */
     .badge {
         background-color: #21262d;
         border: 1px solid #30363d;
@@ -69,7 +76,11 @@ st.markdown("""
 st.title("📝 Conversor para Markdown (.md)")
 st.caption("Powered by Microsoft MarkItDown")
 
-# Seção de formatos suportados com Badges estilizadas
+# Exibe aviso caso a biblioteca tenha falhado na instalação
+if not MARKITDOWN_DISPONIVEL:
+    st.error("⚠️ A biblioteca 'markitdown' não foi encontrada. Verifique se o arquivo requirements.txt contém 'markitdown' e 'streamlit'.")
+
+# Seção de formatos suportados
 with st.expander("📂 Formatos de arquivos suportados"):
     st.markdown("""
     * **Documentos:** <span class="badge">.pdf</span> <span class="badge">.docx</span> <span class="badge">.pptx</span>
@@ -79,35 +90,47 @@ with st.expander("📂 Formatos de arquivos suportados"):
     * **Compactados:** <span class="badge">.zip</span>
     """, unsafe_allow_html=True)
 
-# Upload de arquivo
+# Componente de Upload (extensões sempre em minúsculo para evitar erro no Streamlit)
+extensoes_permitidas = [
+    "pdf", "docx", "pptx", "xlsx", "xls", "csv", 
+    "json", "xml", "html", "htm", "txt", "zip", 
+    "png", "jpg", "jpeg", "mp3", "wav"
+]
+
 uploaded_file = st.file_uploader(
     "Arraste e solte seu arquivo aqui ou clique para selecionar", 
-    type=["pdf", "docx", "pptx", "xlsx", "xls", "csv", "json", "xml", "html", "txt", "zip", "png", "jpg", "mp3", "wav"]
+    type=extensoes_permitidas
 )
 
-if uploaded_file is not None:
-    ext = os.path.splitext(uploaded_file.name)[1]
-    with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tmp:
+if uploaded_file is not None and MARKITDOWN_DISPONIVEL:
+    extensao = os.path.splitext(uploaded_file.name)[1].lower()
+    
+    # Criação segura do arquivo temporário
+    with tempfile.NamedTemporaryFile(delete=False, suffix=extensao) as tmp:
         tmp.write(uploaded_file.getvalue())
         tmp_path = tmp.name
 
-    with st.spinner("Convertendo arquivo para Markdown..."):
+    with st.spinner("Convertendo arquivo via Microsoft MarkItDown..."):
         try:
             md = MarkItDown()
             result = md.convert(tmp_path)
             
-            st.success("Conversão concluída!")
+            st.success("Conversão concluída com sucesso!")
+            
+            # Exibe o resultado do texto
             st.text_area("Resultado em Markdown:", value=result.text_content, height=350)
             
-            nome_original = os.path.splitext(uploaded_file.name)[0]
+            # Botão para baixar o arquivo gerado
+            nome_base = os.path.splitext(uploaded_file.name)[0]
             st.download_button(
                 label="📥 Baixar arquivo .md",
                 data=result.text_content,
-                file_name=f"{nome_original}.md",
+                file_name=f"{nome_base}.md",
                 mime="text/markdown"
             )
         except Exception as e:
-            st.error(f"Erro ao converter o arquivo: {e}")
+            st.error(f"Erro ao converter o arquivo: {str(e)}")
         finally:
+            # Remoção do arquivo temporário do servidor
             if os.path.exists(tmp_path):
                 os.remove(tmp_path)
