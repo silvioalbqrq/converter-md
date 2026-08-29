@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conversor de Arquivos para Markdown (.md)</title>
   
-  <!-- Importação de fontes modernas do Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -17,14 +16,15 @@
       --border-color: #30363d;
       --text-main: #c9d1d9;
       --text-muted: #8b949e;
+      --text-white: #f0f6fc;
       --accent-color: #238636;
       --accent-hover: #2ea043;
       --code-bg: #010409;
       --tag-bg: #21262d;
+      --blue-accent: #58a6ff;
 
-      /* Definição das novas fontes */
       --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,9 +33,9 @@
       font-family: var(--font-primary);
       background-color: var(--bg-color);
       color: var(--text-main);
-      max-width: 750px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 60px 20px;
+      padding: 0 20px 40px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -44,52 +44,132 @@
       font-family: var(--font-mono) !important;
     }
 
-    .header { text-align: center; margin-bottom: 35px; }
-    .header h1 { 
-      color: #f0f6fc; 
-      font-size: 2.1rem; 
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px; 
-    }
-    .header p { color: var(--text-muted); font-size: 1.05rem; }
-
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 28px;
-      margin-bottom: 24px;
+    /* BARRA NAVEGAÇÃO / LOGO */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 40px;
     }
 
-    .cta-container {
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-white);
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, #238636, #1f6beb);
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    /* HERO SECTION */
+    .hero {
       text-align: center;
-      padding: 32px 20px;
+      margin-bottom: 40px;
     }
 
+    .hero h1 {
+      color: var(--text-white);
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 650px;
+      margin: 0 auto 28px;
+    }
+
+    /* BOTÃO DE AÇÃO DESTACADO */
     .btn-primary {
       background-color: var(--accent-color);
       color: #ffffff;
       border: 1px solid rgba(240,246,252,0.1);
-      padding: 14px 28px;
+      padding: 16px 36px;
       border-radius: 8px;
-      font-weight: 600;
-      font-size: 1.05rem;
+      font-weight: 700;
+      font-size: 1.15rem;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       transition: all 0.2s ease;
-      font-family: var(--font-primary);
+      box-shadow: 0 4px 14px rgba(35, 134, 54, 0.4);
     }
 
     .btn-primary:hover {
       background-color: var(--accent-hover);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+      box-shadow: 0 6px 20px rgba(35, 134, 54, 0.6);
     }
 
+    /* CARDS GENÉRICOS */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 30px;
+    }
+
+    .card h2, .card h3 {
+      color: var(--text-white);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    /* EXEMPLO VISUAL (ANTES / DEPOIS) */
+    .example-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .example-box {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .example-box span {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--blue-accent);
+      margin-bottom: 8px;
+    }
+
+    .example-box pre {
+      font-size: 0.82rem;
+      color: #e6edf3;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* FORMATOS SUPORTADOS GRID */
     .formats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
       margin-top: 15px;
     }
@@ -102,11 +182,10 @@
     }
 
     .format-card strong {
-      color: #58a6ff;
+      color: var(--blue-accent);
       display: block;
       margin-bottom: 8px;
       font-size: 0.95rem;
-      font-weight: 600;
     }
 
     .format-badges {
@@ -124,33 +203,141 @@
       border-radius: 6px;
     }
 
-    .footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.85rem;
+    /* COMO FUNCIONA E POR QUE USAR */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-item {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .feature-item h4 {
+      color: var(--text-white);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-item p {
+      font-size: 0.9rem;
       color: var(--text-muted);
+    }
+
+    /* RODAPÉ */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 30px;
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--blue-accent);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* RESPONSIVIDADE (TELAS MENORES) */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      .example-grid { grid-template-columns: 1fr; }
+      nav, footer { flex-direction: column; text-align: center; }
+      .btn-primary { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>📝 Conversor de Arquivos para Markdown</h1>
-    <p>Transforme documentos, planilhas e mídias em texto <code>.md</code> limpo via <strong>Microsoft MarkItDown</strong>.</p>
-  </div>
-
-  <!-- BOTÃO DE ACESSO AO STREAMLIT -->
-  <div class="card cta-container">
-    <h2 style="color: #f0f6fc; margin-bottom: 12px; font-weight: 600;">Acesse a Aplicação Online</h2>
-    <p style="color: var(--text-muted); margin-bottom: 22px;">A conversão é executada em tempo real na nuvem, sem instalações locais.</p>
-    <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" class="btn-primary">
-      🚀 Abrir Conversor no Streamlit
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">📝</div>
+      <span>MarkItDown Web</span>
     </a>
+    <div style="font-size: 0.85rem; color: var(--text-muted);">
+      Powered by Microsoft Engine
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Conversão rápida e simples para Markdown</h1>
+    <p>Transforme arquivos HTML, documentos, planilhas e mídias em texto <code>.md</code> limpo, estruturado e pronto para uso em segundos.</p>
+    
+    <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" class="btn-primary">
+      🚀 Converter Agora no Streamlit
+    </a>
+  </section>
+
+  <div class="card">
+    <h2>⚡ Exemplo Visual de Conversão</h2>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Veja como o conteúdo original é transformado diretamente em formato Markdown padronizado:</p>
+
+    <div class="example-grid">
+      <div class="example-box">
+        <span>Antes (Código HTML)</span>
+        <pre>&lt;h1&gt;Meu Documento&lt;/h1&gt;
+&lt;p&gt;Texto com &lt;strong&gt;negrito&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Item 1&lt;/li&gt;
+  &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;</pre>
+      </div>
+
+      <div class="example-box">
+        <span>Depois (Resultado .MD)</span>
+        <pre># Meu Documento
+
+Texto com **negrito**.
+
+* Item 1
+* Item 2</pre>
+      </div>
+    </div>
   </div>
 
-  <!-- FORMATOS SUPORTADOS -->
   <div class="card">
-    <h3 style="color: #f0f6fc; margin-bottom: 15px; font-weight: 600;">📂 Formatos Aceitos para Conversão</h3>
+    <h2>💡 Por que usar esta ferramenta?</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <h4>⚡ 100% Online e Gratuito</h4>
+        <p>A conversão roda na nuvem em tempo real, sem necessidade de instalar programas no computador.</p>
+      </div>
+
+      <div class="feature-item">
+        <h4>🔒 Privacidade Garantida</h4>
+        <p>Seus arquivos são processados temporariamente para conversão e descartados em seguida.</p>
+      </div>
+
+      <div class="feature-item">
+        <h4>🛠️ Engine da Microsoft</h4>
+        <p>Utiliza a biblioteca oficial MarkItDown para garantir a melhor formatação de tabelas e textos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📂 Formatos Aceitos</h2>
     <div class="formats-grid">
       
       <div class="format-card">
@@ -182,7 +369,7 @@
       </div>
 
       <div class="format-card">
-        <strong>🖼️ Mídias & Outros</strong>
+        <strong>🖼️ Mídias & Áudio</strong>
         <div class="format-badges">
           <span class="badge">.png</span>
           <span class="badge">.jpg</span>
@@ -195,9 +382,15 @@
     </div>
   </div>
 
-  <div class="footer">
-    Desenvolvido com Python, Streamlit e Microsoft MarkItDown.
-  </div>
+  <footer>
+    <div>
+      © 2026 MarkItDown Web — Todos os direitos reservados.
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/silvioalbqrq/converter-md" target="_blank">Repositório no GitHub</a>
+      <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank">Aplicação Streamlit</a>
+    </div>
+  </footer>
 
 </body>
 </html>
