@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor Local Markdown (MarkItDown)</title>
+  <title>Conversor de Arquivos para Markdown (.md)</title>
+  
+  <!-- Importação de fontes modernas do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-color: #0d1117;
@@ -13,48 +19,77 @@
       --text-muted: #8b949e;
       --accent-color: #238636;
       --accent-hover: #2ea043;
-      --warning-bg: #271e12;
-      --warning-border: #845306;
-      --warning-text: #f2cc60;
       --code-bg: #010409;
       --tag-bg: #21262d;
+
+      /* Definição das novas fontes */
+      --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: var(--font-primary);
       background-color: var(--bg-color);
       color: var(--text-main);
-      max-width: 850px;
+      max-width: 750px;
       margin: 0 auto;
-      padding: 40px 20px;
+      padding: 60px 20px;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4 { color: #f0f6fc; margin-bottom: 12px; }
+    code, pre, .badge {
+      font-family: var(--font-mono) !important;
+    }
 
-    .header { text-align: center; margin-bottom: 30px; }
-    .header p { color: var(--text-muted); }
+    .header { text-align: center; margin-bottom: 35px; }
+    .header h1 { 
+      color: #f0f6fc; 
+      font-size: 2.1rem; 
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px; 
+    }
+    .header p { color: var(--text-muted); font-size: 1.05rem; }
 
     .card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
+      border-radius: 12px;
+      padding: 28px;
       margin-bottom: 24px;
     }
 
-    .card-warning {
-      background-color: var(--warning-bg);
-      border-color: var(--warning-border);
-      color: var(--warning-text);
+    .cta-container {
+      text-align: center;
+      padding: 32px 20px;
     }
 
-    /* Grid de Formatos Suportados */
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: #ffffff;
+      border: 1px solid rgba(240,246,252,0.1);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s ease;
+      font-family: var(--font-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+    }
+
     .formats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 12px;
       margin-top: 15px;
     }
@@ -62,22 +97,22 @@
     .format-card {
       background-color: var(--code-bg);
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 12px;
+      border-radius: 8px;
+      padding: 14px;
     }
 
     .format-card strong {
       color: #58a6ff;
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
       font-size: 0.95rem;
+      font-weight: 600;
     }
 
     .format-badges {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
     }
 
     .badge {
@@ -85,115 +120,37 @@
       border: 1px solid var(--border-color);
       color: #79c0ff;
       font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-family: monospace;
-    }
-
-    details { cursor: pointer; }
-    summary { font-weight: bold; color: #f0f6fc; }
-    
-    pre {
-      background-color: var(--code-bg);
-      border: 1px solid var(--border-color);
-      color: #e6edf3;
-      padding: 12px;
+      padding: 3px 8px;
       border-radius: 6px;
-      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-      font-size: 0.9em;
-      margin: 10px 0;
-      overflow-x: auto;
     }
 
-    /* Área de Drag and Drop */
-    .drop-zone {
-      border: 2px dashed var(--border-color);
-      border-radius: 8px;
-      padding: 35px;
+    .footer {
       text-align: center;
-      background-color: var(--code-bg);
-      transition: border-color 0.2s ease, background-color 0.2s ease;
-      cursor: pointer;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
-
-    .drop-zone:hover, .drop-zone.dragover {
-      border-color: #58a6ff;
-      background-color: #161b22;
-    }
-
-    input[type="file"] { display: none; }
-
-    .file-label {
-      color: #58a6ff;
-      font-weight: bold;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .btn {
-      background-color: var(--accent-color);
-      color: #ffffff;
-      border: 1px solid rgba(240,246,252,0.1);
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      display: inline-block;
-      margin-top: 15px;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn:hover { background-color: var(--accent-hover); }
-
-    .btn-secondary {
-      background-color: #21262d;
-      color: var(--text-main);
-      border-color: var(--border-color);
-      margin-top: 0;
-    }
-
-    .btn-secondary:hover { background-color: #30363d; }
-
-    .output-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      margin-bottom: 10px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 300px;
-      background-color: var(--code-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: #e6edf3;
-      padding: 12px;
-      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-      font-size: 0.9rem;
-      resize: vertical;
-    }
-
-    textarea:focus { outline: none; border-color: #58a6ff; }
-    .file-info { margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); }
   </style>
 </head>
 <body>
 
   <div class="header">
-    <h2>Conversor Local de Arquivos para Markdown</h2>
-    <p>Utiliza a engine <strong>Microsoft MarkItDown</strong> executada no seu próprio computador.</p>
+    <h1>📝 Conversor de Arquivos para Markdown</h1>
+    <p>Transforme documentos, planilhas e mídias em texto <code>.md</code> limpo via <strong>Microsoft MarkItDown</strong>.</p>
   </div>
 
-  <div class="card card-warning">
-    ⚠️ <strong>Processamento Local:</strong><br>
-    As conversões rodam através do servidor Python executado no seu PC. Seus dados permanecem 100% privados e locais.
+  <!-- BOTÃO DE ACESSO AO STREAMLIT -->
+  <div class="card cta-container">
+    <h2 style="color: #f0f6fc; margin-bottom: 12px; font-weight: 600;">Acesse a Aplicação Online</h2>
+    <p style="color: var(--text-muted); margin-bottom: 22px;">A conversão é executada em tempo real na nuvem, sem instalações locais.</p>
+    <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" class="btn-primary">
+      🚀 Abrir Conversor no Streamlit
+    </a>
   </div>
 
+  <!-- FORMATOS SUPORTADOS -->
   <div class="card">
-    <h3>📂 Formatos Suportados para Conversão</h3>
+    <h3 style="color: #f0f6fc; margin-bottom: 15px; font-weight: 600;">📂 Formatos Aceitos para Conversão</h3>
     <div class="formats-grid">
       
       <div class="format-card">
@@ -220,24 +177,17 @@
         <strong>🌐 Web & Texto</strong>
         <div class="format-badges">
           <span class="badge">.html</span>
-          <span class="badge">.htm</span>
           <span class="badge">.txt</span>
         </div>
       </div>
 
       <div class="format-card">
-        <strong>🖼️ Imagens & Áudio</strong>
+        <strong>🖼️ Mídias & Outros</strong>
         <div class="format-badges">
           <span class="badge">.png</span>
           <span class="badge">.jpg</span>
           <span class="badge">.mp3</span>
           <span class="badge">.wav</span>
-        </div>
-      </div>
-
-      <div class="format-card">
-        <strong>📦 Compactados</strong>
-        <div class="format-badges">
           <span class="badge">.zip</span>
         </div>
       </div>
@@ -245,110 +195,9 @@
     </div>
   </div>
 
-  <div class="card">
-    <details>
-      <summary>⚙️ Como ativar o servidor Python no seu computador</summary>
-      <p style="margin-top: 10px;">1. Instale as dependências via terminal:</p>
-      <pre>pip install markitdown fastapi uvicorn python-multipart</pre>
-      <p>2. Execute o script do servidor na máquina local:</p>
-      <pre>python server.py</pre>
-      <p style="font-size: 0.85rem; color: var(--text-muted);">Mantenha o terminal aberto enquanto realiza as conversões no site.</p>
-    </details>
+  <div class="footer">
+    Desenvolvido com Python, Streamlit e Microsoft MarkItDown.
   </div>
-
-  <div class="card">
-    <h3>Converter Arquivo</h3>
-    
-    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
-      <p>Arraste e solte seu arquivo aqui ou <span class="file-label">Clique para escolher</span></p>
-      <input type="file" id="fileInput" onchange="mostrarNomeArquivo()">
-    </div>
-    
-    <div class="file-info" id="fileInfo">Nenhum arquivo selecionado</div>
-
-    <button class="btn" onclick="converter()">Converter para .md</button>
-
-    <div class="output-header">
-      <h4>Resultado em Markdown:</h4>
-      <button class="btn btn-secondary" onclick="copiarTexto()">📋 Copiar Texto</button>
-    </div>
-    <textarea id="output" readonly placeholder="O resultado em Markdown aparecerá aqui..."></textarea>
-  </div>
-
-  <script>
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('fileInput');
-    const fileInfo = document.getElementById('fileInfo');
-
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-      if (e.dataTransfer.files.length) {
-        fileInput.files = e.dataTransfer.files;
-        mostrarNomeArquivo();
-      }
-    });
-
-    function mostrarNomeArquivo() {
-      if (fileInput.files[0]) {
-        fileInfo.textContent = `Arquivo selecionado: ${fileInput.files[0].name}`;
-      } else {
-        fileInfo.textContent = "Nenhum arquivo selecionado";
-      }
-    }
-
-    async function converter() {
-      if (!fileInput.files[0]) {
-        alert('Selecione um arquivo antes de converter!');
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
-
-      document.getElementById('output').value = "Convertendo arquivo via MarkItDown local...";
-
-      try {
-        const response = await fetch('http://127.0.0.1:8000/convert', {
-          method: 'POST',
-          body: formData
-        });
-
-        if (!response.ok) throw new Error("Erro na conexão com o servidor");
-
-        const data = await response.json();
-        document.getElementById('output').value = data.markdown;
-      } catch (err) {
-        document.getElementById('output').value = '';
-        alert(
-          "⚠️ Não foi possível conectar ao servidor local!\n\n" +
-          "Certifique-se de que:\n" +
-          "1. Você instalou as dependências (pip install markitdown...)\n" +
-          "2. O script 'server.py' está sendo executado no terminal."
-        );
-      }
-    }
-
-    function copiarTexto() {
-      const outputText = document.getElementById('output');
-      if (!outputText.value) {
-        alert("Não há texto para copiar!");
-        return;
-      }
-      navigator.clipboard.writeText(outputText.value).then(() => {
-        alert("Texto em Markdown copiado com sucesso!");
-      });
-    }
-  </script>
 
 </body>
 </html>
