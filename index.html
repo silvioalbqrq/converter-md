@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor de Arquivos para Markdown (.md)</title>
-  
+  <title>MarkItDown Web — Conversor de Arquivos para Markdown (.md)</title>
+  <meta name="description" content="Converta PDF, DOCX, PPTX, XLSX, CSV, JSON, XML, HTML e ZIP para Markdown limpo com a engine Microsoft MarkItDown. Grátis, online, ideal para LLMs e documentação.">
+  <meta name="keywords" content="markdown, conversor pdf para markdown, markitdown, docx para md, llm, streamlit, python">
+  <meta name="author" content="silvioalbqrq">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="canonical" href="https://silvioalbqrq.github.io/converter-md/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="MarkItDown Web — Conversor de Arquivos para Markdown">
+  <meta property="og:description" content="PDF, Word, Excel e HTML → .md limpo em segundos. Powered by Microsoft MarkItDown.">
+  <meta property="og:url" content="https://silvioalbqrq.github.io/converter-md/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="MarkItDown Web — Conversor para Markdown">
+  <meta name="twitter:description" content="Converta documentos para .md pronto para LLMs e docs.">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23238636'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='white'>M</text></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -27,6 +44,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--font-primary);
@@ -40,13 +58,21 @@
 
     code, pre, .badge { font-family: var(--font-mono) !important; }
 
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--blue-accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       padding: 24px 0;
       border-bottom: 1px solid var(--border-color);
       margin-bottom: 40px;
+      flex-wrap: wrap;
     }
 
     .logo {
@@ -69,29 +95,71 @@
       justify-content: center;
     }
 
+    .nav-links { display: flex; gap: 16px; align-items: center; font-size: 0.9rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; }
+    .nav-links a:hover { color: var(--text-white); }
+
     .hero { text-align: center; margin-bottom: 40px; }
-    .hero h1 { color: var(--text-white); font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; }
+    .pill {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--blue-accent);
+      border: 1px solid #1f6beb;
+      background: #1f6beb22;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+    }
+    .hero h1 { color: var(--text-white); font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
     .hero p { color: var(--text-muted); font-size: 1.15rem; max-width: 650px; margin: 0 auto 28px; }
+    .hero p code { color: var(--text-white); background: var(--code-bg); border: 1px solid var(--border-color); padding: 1px 6px; border-radius: 4px; }
+
+    .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
     .btn-primary {
       background-color: var(--accent-color);
       color: #ffffff;
-      padding: 16px 36px;
+      padding: 16px 32px;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 10px;
       box-shadow: 0 4px 14px rgba(35, 134, 54, 0.4);
       transition: all 0.2s ease;
+      border: 1px solid rgba(240,246,252,.1);
     }
+    .btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
 
-    .btn-primary:hover {
-      background-color: var(--accent-hover);
-      transform: translateY(-2px);
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-white);
+      padding: 16px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
     }
+    .btn-secondary:hover { border-color: var(--blue-accent); color: var(--blue-accent); transform: translateY(-2px); }
+
+    .stats {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .stats strong { color: var(--text-white); }
 
     .card {
       background-color: var(--card-bg);
@@ -100,8 +168,8 @@
       padding: 28px;
       margin-bottom: 30px;
     }
-
-    .card h2 { color: var(--text-white); margin-bottom: 16px; font-weight: 700; }
+    .card h2 { color: var(--text-white); margin-bottom: 8px; font-weight: 700; font-size: 1.4rem; }
+    .card .subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; }
 
     .formats-grid {
       display: grid;
@@ -109,19 +177,108 @@
       gap: 12px;
       margin-top: 15px;
     }
-
     .format-card {
       background-color: var(--code-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 14px;
     }
-
     .format-card strong { color: var(--blue-accent); display: block; margin-bottom: 8px; }
+    .format-card .count { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 8px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; }
 
-    .badge-doc { background-color: #1f6beb22; border: 1px solid #1f6beb; color: #58a6ff; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; }
-    .badge-data { background-color: #23863622; border: 1px solid #238636; color: #3fb950; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; }
-    .badge-web { background-color: #8957e522; border: 1px solid #8957e5; color: #bc8cff; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; }
+    .badge-doc, .badge-data, .badge-web, .badge-zip {
+      font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+    .badge-doc { background-color: #1f6beb22; border: 1px solid #1f6beb; color: #58a6ff; }
+    .badge-data { background-color: #23863622; border: 1px solid #238636; color: #3fb950; }
+    .badge-web { background-color: #8957e522; border: 1px solid #8957e5; color: #bc8cff; }
+    .badge-zip { background-color: #d2992222; border: 1px solid #d29922; color: #e3b341; }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .demo-pane {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .demo-pane header {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+    }
+    .demo-pane pre {
+      padding: 16px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      color: var(--text-main);
+      white-space: pre-wrap;
+    }
+    .demo-pane pre .md-h { color: #f0f6fc; font-weight: 700; }
+    .demo-pane pre .md-b { color: #58a6ff; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .step {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .step span.num {
+      display: inline-flex;
+      width: 28px; height: 28px;
+      align-items: center; justify-content: center;
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: 800;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    .step h3 { color: var(--text-white); font-size: 1rem; margin-bottom: 6px; }
+    .step p { font-size: 0.9rem; color: var(--text-muted); }
+
+    .features { list-style: none; display: grid; gap: 10px; margin-top: 16px; }
+    .features li {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+    }
+    .features li strong { color: var(--text-white); }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .privacy-grid div {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .privacy-grid div strong { color: var(--text-white); display: block; margin-bottom: 6px; }
 
     footer {
       border-top: 1px solid var(--border-color);
@@ -129,76 +286,208 @@
       margin-top: 50px;
       display: flex;
       justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
       color: var(--text-muted);
       font-size: 0.9rem;
     }
-
     footer a { color: var(--blue-accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      body { padding: 0 16px 32px; }
+      nav { margin-bottom: 28px; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px 20px; font-size: 1rem; }
+      .card { padding: 20px; }
+      .demo-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; align-items: center; }
+    }
   </style>
 </head>
-<body>
+<body id="topo">
 
-  <nav>
-    <a href="#" class="logo">
-      <div class="logo-icon">📝</div>
+  <nav aria-label="Navegação principal">
+    <a href="#topo" class="logo" aria-label="MarkItDown Web - início">
+      <div class="logo-icon" aria-hidden="true">📝</div>
       <span>MarkItDown Web</span>
     </a>
-    <div style="font-size: 0.85rem; color: var(--text-muted);">
-      Powered by Microsoft Engine
+    <div class="nav-links">
+      <a href="#formatos">Formatos</a>
+      <a href="#exemplo">Exemplo</a>
+      <a href="#como-funciona">Como funciona</a>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Powered by Microsoft Engine</span>
     </div>
   </nav>
 
   <section class="hero">
+    <span class="pill">⚡ Microsoft MarkItDown Engine</span>
     <h1>Conversão rápida de documentos para Markdown</h1>
     <p>Transforme PDFs, planilhas, documentos Word e textos em arquivos <code>.md</code> limpos e prontos para uso em LLMs e documentações.</p>
-    
-    <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" class="btn-primary">
-      🚀 Abrir Conversor no Streamlit
-    </a>
+
+    <div class="cta-group">
+      <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" rel="noopener" class="btn-primary" aria-label="Abrir conversor no Streamlit em nova aba">
+        🚀 Abrir Conversor no Streamlit
+      </a>
+      <a href="https://github.com/silvioalbqrq/converter-md" target="_blank" rel="noopener" class="btn-secondary" aria-label="Ver código fonte no GitHub em nova aba">
+        ⭐ Ver no GitHub
+      </a>
+    </div>
+
+    <div class="stats" aria-label="Destaques">
+      <span><strong>12</strong> formatos</span>
+      <span>•</span>
+      <span><strong>100%</strong> na nuvem</span>
+      <span>•</span>
+      <span><strong>Grátis</strong> sem instalação</span>
+    </div>
   </section>
 
-  <div class="card">
+  <div class="card" id="formatos">
     <h2>📂 Formatos Suportados</h2>
+    <p class="subtitle">Mesma lista aceita pelo app Streamlit (<code>app.py</code>). Total: 12 extensões.</p>
     <div class="formats-grid">
-      
       <div class="format-card">
         <strong>📄 Documentos</strong>
-        <div>
+        <div class="badges">
           <span class="badge-doc">.pdf</span>
           <span class="badge-doc">.docx</span>
           <span class="badge-doc">.pptx</span>
         </div>
+        <span class="count">Texto + tabelas preservadas</span>
       </div>
 
       <div class="format-card">
-        <strong>📊 Planilhas & Dados</strong>
-        <div>
+        <strong>📊 Planilhas &amp; Dados</strong>
+        <div class="badges">
           <span class="badge-data">.xlsx</span>
           <span class="badge-data">.xls</span>
           <span class="badge-data">.csv</span>
           <span class="badge-data">.json</span>
+          <span class="badge-data">.xml</span>
         </div>
+        <span class="count">Tabelas → markdown + JSON/XML estruturado</span>
       </div>
 
       <div class="format-card">
-        <strong>🌐 Web & Texto</strong>
-        <div>
+        <strong>🌐 Web &amp; Texto</strong>
+        <div class="badges">
           <span class="badge-web">.html</span>
+          <span class="badge-web">.htm</span>
           <span class="badge-web">.txt</span>
-          <span class="badge-web">.zip</span>
         </div>
+        <span class="count">Limpa tags e mantém títulos/listas</span>
       </div>
 
+      <div class="format-card">
+        <strong>📦 Compactados</strong>
+        <div class="badges">
+          <span class="badge-zip">.zip</span>
+        </div>
+        <span class="count">Extrai e converte o conteúdo interno</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="exemplo">
+    <h2>🔄 Exemplo: antes → depois</h2>
+    <p class="subtitle">A engine extrai texto e converte tabelas, títulos e listas para Markdown estruturado.</p>
+    <div class="demo-grid">
+      <div class="demo-pane">
+        <header><span>relatorio.pdf</span><span>ANTES</span></header>
+<pre>Relatório Trimestral
+Receita por Região
+
+Sudeste .... R$ 120.000
+Sul ........ R$ 85.000
+Nordeste ... R$ 42.500
+
+• Meta atingida
+• Crescimento de 12%</pre>
+      </div>
+      <div class="demo-pane">
+        <header><span>relatorio.md</span><span>DEPOIS ✓</span></header>
+<pre><span class="md-h"># Relatório Trimestral</span>
+
+<span class="md-h">## Receita por Região</span>
+
+| Região | Receita |
+|---|---|
+| Sudeste | R$ 120.000 |
+| Sul | R$ 85.000 |
+| Nordeste | R$ 42.500 |
+
+<span class="md-b">-</span> [x] Meta atingida
+<span class="md-b">-</span> Crescimento de 12%</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="como-funciona">
+    <h2>⚙️ Como funciona</h2>
+    <p class="subtitle">3 passos, sem instalar nada.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>📤 Upload</h3>
+        <p>Arraste um ou vários arquivos no app Streamlit. Suporte a múltiplos de uma vez.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>⚡ Conversão</h3>
+        <p>A engine MarkItDown extrai texto e preserva tabelas, listas e títulos.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>📥 Preview &amp; Download</h3>
+        <p>Visualize o Markdown na tela, baixe o <code>.md</code> ou acompanhe no histórico da sessão.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="recursos">
+    <h2>✨ Por que usar?</h2>
+    <ul class="features">
+      <li>📑 <strong>Múltiplos arquivos:</strong> converta vários documentos simultaneamente.</li>
+      <li>👁️ <strong>Preview em tempo real:</strong> veja o resultado antes de baixar.</li>
+      <li>📜 <strong>Histórico da sessão:</strong> acompanhe na barra lateral o que já foi convertido.</li>
+      <li>🌙 <strong>Dark mode GitHub:</strong> mesma identidade visual clara e escura.</li>
+      <li>☁️ <strong>Zero instalação:</strong> processamento 100% na nuvem via Streamlit Cloud.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="privacidade">
+    <h2>🔒 Privacidade &amp; Limites</h2>
+    <p class="subtitle">Transparência sobre o que o app faz com seus arquivos.</p>
+    <div class="privacy-grid">
+      <div>
+        <strong>🔐 Seus arquivos</strong>
+        Processamento temporário na sessão do Streamlit Cloud. Não há armazenamento permanente pelo app — baixe o .md logo após converter.
+      </div>
+      <div>
+        <strong>📏 Limites</strong>
+        Ideal para documentos corporativos comuns. Arquivos muito grandes, PDFs escaneados sem OCR ou ZIPs com centenas de arquivos podem falhar ou demorar.
+      </div>
+      <div>
+        <strong>🤖 Para LLMs</strong>
+        A saída é Markdown limpo, ideal para RAG, embeddings, ChatGPT, Claude e documentação em GitHub/MkDocs.
+      </div>
     </div>
   </div>
 
   <footer>
-    <div>© 2026 MarkItDown Web</div>
+    <div>© <span id="ano">2026</span> MarkItDown Web · MIT</div>
     <div>
-      <a href="https://github.com/silvioalbqrq/converter-md" target="_blank">GitHub</a> | 
-      <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank">App Streamlit</a>
+      <a href="https://github.com/silvioalbqrq/converter-md" target="_blank" rel="noopener">GitHub</a> |
+      <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" rel="noopener">App Streamlit</a> |
+      <a href="#topo">Topo ↑</a>
     </div>
   </footer>
+
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
