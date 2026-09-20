@@ -1,2 +1,2 @@
-streamlit
-markitdown[all]
+streamlit>=1.36
+markitdown[all]>=0.1.0
