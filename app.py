@@ -40,6 +40,93 @@ st.markdown("""
         font-weight: 700 !important;
     }
 
+    /* Texto base: garante contraste #c9d1d9 sobre #0d1117 */
+    .stApp p, .stApp li, .stApp span, .stApp div,
+    div[data-testid="stMarkdownContainer"] p,
+    div[data-testid="stMarkdownContainer"] li,
+    div[data-testid="stMarkdownContainer"] span {
+        color: #c9d1d9;
+    }
+    div[data-testid="stMarkdownContainer"] strong {
+        color: #f0f6fc !important;
+    }
+    a, div[data-testid="stMarkdownContainer"] a {
+        color: #58a6ff !important;
+    }
+
+    /* Sidebar: texto apagado ficava ilegível */
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] li,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] p {
+        color: #c9d1d9 !important;
+    }
+    section[data-testid="stSidebar"] strong {
+        color: #f0f6fc !important;
+    }
+
+    /* Alertas (st.info/warning/success/error): texto azul-escuro sobre fundo escuro = ilegível */
+    div[data-testid="stAlert"] {
+        background-color: #161b22 !important;
+        border: 1px solid #30363d !important;
+        border-radius: 8px !important;
+    }
+    div[data-testid="stAlert"] p,
+    div[data-testid="stAlert"] span,
+    div[data-testid="stAlert"] div {
+        color: #f0f6fc !important;
+    }
+    /* Mantém a faixinha lateral colorida de cada tipo via borda esquerda */
+    div[data-testid="stInfo"] { border-left: 4px solid #1f6beb !important; }
+    div[data-testid="stSuccess"] { border-left: 4px solid #238636 !important; }
+    div[data-testid="stWarning"] { border-left: 4px solid #d29922 !important; }
+    div[data-testid="stError"] { border-left: 4px solid #f85149 !important; }
+
+    /* Expander: header branco com texto claro = ilegível */
+    details[data-testid="stExpander"],
+    div[data-testid="stExpander"] {
+        background-color: #161b22 !important;
+        border: 1px solid #30363d !important;
+        border-radius: 8px !important;
+    }
+    div[data-testid="stExpander"] summary,
+    div[data-testid="stExpander"] summary p,
+    div[data-testid="stExpander"] summary span {
+        color: #f0f6fc !important;
+    }
+    div[data-testid="stExpander"] [data-testid="stExpanderDetails"] {
+        background-color: #0d1117 !important;
+    }
+
+    /* Caption "Powered by...": cinza legível, não apagado */
+    div[data-testid="stCaptionContainer"],
+    div[data-testid="stCaptionContainer"] p,
+    div[data-testid="stCaptionContainer"] span {
+        color: #8b949e !important;
+    }
+
+    /* Uploader: texto auxiliar cinza-claro sobre fundo escuro */
+    div[data-testid="stFileUploader"] small,
+    div[data-testid="stFileUploader"] span,
+    div[data-testid="stFileUploaderDropzone"] small,
+    div[data-testid="stFileUploaderDropzone"] span,
+    div[data-testid="stFileUploaderDropzoneInstructions"] {
+        color: #8b949e !important;
+    }
+    div[data-testid="stFileUploaderDropzone"] button {
+        color: #f0f6fc !important;
+        border-color: #30363d !important;
+    }
+
+    /* Code inline (.md etc): fundo preto, texto claro */
+    code {
+        background-color: #010409 !important;
+        color: #f0f6fc !important;
+        border: 1px solid #30363d !important;
+        border-radius: 4px !important;
+        padding: 1px 5px !important;
+    }
+
     /* Container de Categorias e Cards */
     .cat-card {
         background-color: #161b22;
