@@ -8,7 +8,7 @@
   <meta name="keywords" content="markdown, conversor pdf para markdown, markitdown, docx para md, llm, streamlit, python">
   <meta name="author" content="silvioalbqrq">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0d1117">
+  <meta name="theme-color" content="#1C1917">
   <link rel="canonical" href="https://silvioalbqrq.github.io/converter-md/">
 
   <meta property="og:type" content="website">
@@ -20,7 +20,7 @@
   <meta name="twitter:title" content="MarkItDown Web — Conversor para Markdown">
   <meta name="twitter:description" content="Converta documentos para .md pronto para LLMs e docs.">
 
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23238636'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='white'>M</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231C1917'/%3E%3Crect x='0' y='86' width='100' height='8' fill='%23059669'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white'>M</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,16 +28,16 @@
 
   <style>
     :root {
-      --bg-color: #0d1117;
-      --card-bg: #161b22;
-      --border-color: #30363d;
+      --bg-color: #1C1917;
+      --card-bg: #292524;
+      --border-color: #44403C;
       --text-main: #c9d1d9;
       --text-muted: #8b949e;
       --text-white: #f0f6fc;
-      --accent-color: #238636;
-      --accent-hover: #2ea043;
-      --code-bg: #010409;
-      --blue-accent: #58a6ff;
+      --accent-color: #059669;
+      --accent-hover: #047857;
+      --code-bg: #141210;
+      --blue-accent: #34D399;
 
       --font-primary: 'Plus Jakarta Sans', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -70,7 +70,7 @@
       align-items: center;
       gap: 12px;
       padding: 24px 0;
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 3px solid var(--accent-color);
       margin-bottom: 40px;
       flex-wrap: wrap;
     }
@@ -86,7 +86,7 @@
     }
 
     .logo-icon {
-      background: linear-gradient(135deg, #238636, #1f6beb);
+      background: linear-gradient(135deg, #059669, #047857);
       width: 36px;
       height: 36px;
       border-radius: 8px;
@@ -100,12 +100,14 @@
     .nav-links a:hover { color: var(--text-white); }
 
     .hero { text-align: center; margin-bottom: 40px; }
+    .hero-eyebrow { color: #6EE7B7; text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; font-weight: 700; margin: 0 0 14px; }
+    .hero-eyebrow a { color: #6EE7B7; }
     .pill {
       display: inline-block;
       font-size: 0.8rem;
       color: var(--blue-accent);
-      border: 1px solid #1f6beb;
-      background: #1f6beb22;
+      border: 1px solid #047857;
+      background: #05966922;
       padding: 4px 12px;
       border-radius: 999px;
       margin-bottom: 16px;
@@ -128,7 +130,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 14px rgba(35, 134, 54, 0.4);
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
       transition: all 0.2s ease;
       border: 1px solid rgba(240,246,252,.1);
     }
@@ -191,7 +193,7 @@
       font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono);
       white-space: nowrap;
     }
-    .badge-doc { background-color: #1f6beb22; border: 1px solid #1f6beb; color: #58a6ff; }
+    .badge-doc { background-color: #05966922; border: 1px solid #059669; color: #34D399; }
     .badge-data { background-color: #23863622; border: 1px solid #238636; color: #3fb950; }
     .badge-web { background-color: #8957e522; border: 1px solid #8957e5; color: #bc8cff; }
     .badge-zip { background-color: #d2992222; border: 1px solid #d29922; color: #e3b341; }
@@ -226,7 +228,7 @@
       white-space: pre-wrap;
     }
     .demo-pane pre .md-h { color: #f0f6fc; font-weight: 700; }
-    .demo-pane pre .md-b { color: #58a6ff; }
+    .demo-pane pre .md-b { color: #34D399; }
 
     .steps {
       display: grid;
@@ -281,7 +283,7 @@
     .privacy-grid div strong { color: var(--text-white); display: block; margin-bottom: 6px; }
 
     footer {
-      border-top: 1px solid var(--border-color);
+      border-top: 3px solid var(--accent-color);
       padding-top: 30px;
       margin-top: 50px;
       display: flex;
@@ -318,10 +320,12 @@
       <a href="#exemplo">Exemplo</a>
       <a href="#como-funciona">Como funciona</a>
       <span style="font-size: 0.85rem; color: var(--text-muted);">Powered by Microsoft Engine</span>
+      <a href="https://silvioalbqrq.github.io/portal-fiscal/" style="font-size: 0.85rem;">Hub Fiscal</a>
     </div>
   </nav>
 
   <section class="hero">
+    <p class="hero-eyebrow">VMF Contabilidade · <a href="https://silvioalbqrq.github.io/portal-fiscal/">Hub Fiscal</a></p>
     <span class="pill">⚡ Microsoft MarkItDown Engine</span>
     <h1>Conversão rápida de documentos para Markdown</h1>
     <p>Transforme PDFs, planilhas, documentos Word e textos em arquivos <code>.md</code> limpos e prontos para uso em LLMs e documentações.</p>
@@ -477,11 +481,12 @@ Nordeste ... R$ 42.500
   </div>
 
   <footer>
-    <div>© <span id="ano">2026</span> MarkItDown Web · MIT</div>
+    <div>© <span id="ano">2026</span> MarkItDown Web · MIT · <strong>VMF Contabilidade</strong></div>
     <div>
       <a href="https://github.com/silvioalbqrq/converter-md" target="_blank" rel="noopener">GitHub</a> |
       <a href="https://converter-md-jk65fzh9pdegoulqwadwul.streamlit.app" target="_blank" rel="noopener">App Streamlit</a> |
-      <a href="#topo">Topo ↑</a>
+      <a href="#topo">Topo ↑</a> |
+      <a href="https://silvioalbqrq.github.io/portal-fiscal/">Voltar ao Hub</a>
     </div>
   </footer>
 
